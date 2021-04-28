@@ -97,12 +97,14 @@ HashMap::HashMap() {
   for (int i = 0; i < TABLE_SIZE; i++)
     table[i] = NULL;
 #ifdef P1_SEMAPHORE
+  char s= 's';
   for (int i = 0; i < TABLE_SIZE; i++)
-    sem[i] = new Semaphore('s', 1);
+    sem[i] = new Semaphore(&(s), 1);
   //insert setup code here
 #elif defined P1_LOCK
+  char l= 'l';  
   for (int i = 0; i < TABLE_SIZE; i++)
-    lck[i] = new Lock('l');
+    lck[i] = new Lock(&(l));
   //insert setup code here
 #elif defined P1_RWLOCK
   //insert setup code here
