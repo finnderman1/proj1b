@@ -48,10 +48,10 @@
 #define START_WRITE(i) lck[i]->Acquire() //TODO
 #define END_WRITE(i) lck[i]->Release() //TODO
 #elif defined P1_RWLOCK //using our rwlock. Your solution for Task 3
-#define START_READ(i) rwlck->startRead() //TODO
-#define END_READ(i) rwlck->doneRead() //TODO
-#define START_WRITE(i) rwlck->startWrite() //TODO
-#define END_WRITE(i) rwlck->doneWrite() //TODO
+#define START_READ(i) rwlck[i]->startRead() //TODO
+#define END_READ(i) rwlck[i]->doneRead() //TODO
+#define START_WRITE(i) rwlck[i]->startWrite() //TODO
+#define END_WRITE(i) rwlck[i] ->doneWrite() //TODO
 #else //else behave like NOLOCK (no option passed)
 #define START_READ(i) do{}while(0)
 #define END_READ(i) do{}while(0)
