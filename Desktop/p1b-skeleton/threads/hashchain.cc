@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <unistd.h>
-//#include "rwlock.h"
+#include "rwlock.h"
 #include "hashchain.h"
 #include "synch.h"
 
@@ -48,10 +48,10 @@
 #define START_WRITE(i) lck[i]->Acquire() //TODO
 #define END_WRITE(i) lck[i]->Release() //TODO
 #elif defined P1_RWLOCK //using our rwlock. Your solution for Task 3
-#define START_READ(i) do{}while(0) //TODO
-#define END_READ(i) do{}while(0) //TODO
-#define START_WRITE(i) do{}while(0) //TODO
-#define END_WRITE(i) do{}while(0) //TODO
+#define START_READ(i) rwlck->startRead() //TODO
+#define END_READ(i) rwlck->doneRead() //TODO
+#define START_WRITE(i) rwlck->startWrite() //TODO
+#define END_WRITE(i) rwlck->doneWrite() //TODO
 #else //else behave like NOLOCK (no option passed)
 #define START_READ(i) do{}while(0)
 #define END_READ(i) do{}while(0)
@@ -106,7 +106,9 @@ HashMap::HashMap() {
   for (int i = 0; i < TABLE_SIZE; i++)
     lck[i] = new Lock(&(l));
   //insert setup code here
-#elif defined P1_RWLOCK
+#elif defined P1_RWLOCK  
+  for (int i = 0; i < TABLE_SIZE; i++)
+    rwlck[i] = new RWLock();
   //insert setup code here
 #endif
 }
