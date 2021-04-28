@@ -27,7 +27,7 @@ void RWLock::startRead(){
     lock->Acquire();
     waitingReaders++;
     while (activeWriters > 0 || waitingWriters > 0) {
-        readGo->Wait(&lock);
+        readGo->Wait(lock);
     }
     waitingReaders--;
     activeReaders++;
@@ -46,7 +46,7 @@ void RWLock::startWrite(){
     lock->Acquire();
     waitingWriters++;
     while (activeWriters > 0 || activeReaders > 0) {
-        writeGo->Wait(&lock);
+        writeGo->Wait(lock);
     }
     waitingWriters--;
     activeWriters++;
@@ -57,10 +57,10 @@ void RWLock::doneWrite(){
     activeWriters--;
     assert(activeWriters == 0);
     if (waitingWriters > 0) {
-        writeGo->Signal();
+        writeGo->Signal(lock);
     } 
     else {
-        readGo->Broadcast();
+        readGo->Broadcast(lock);
     }
     lock->Release();
 }
