@@ -3,6 +3,7 @@
 
 
 #include "rwlock.h"
+#include "synch.h"
 
 //Implement all methods of RWLock defined in rwlock.h
 //Your solution for  Task 3 
