@@ -98,7 +98,7 @@ HashMap::HashMap() {
     table[i] = NULL;
 #ifdef P1_SEMAPHORE
   for (int i = 0; i < TABLE_SIZE; i++)
-    sem[i] = new Semaphore('', 1);
+    sem[i] = new Semaphore('s', 1);
   //insert setup code here
 #elif defined P1_LOCK
   for (int i = 0; i < TABLE_SIZE; i++)
