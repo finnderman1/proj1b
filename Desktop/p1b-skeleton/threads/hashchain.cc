@@ -33,30 +33,30 @@
 //  #define END_READ() lock.unlock()
 #ifdef NOLOCK
 //no synchronization code
-#define START_READ() do{}while(0)
-#define END_READ() do{}while(0)
-#define START_WRITE() do{}while(0)
-#define END_WRITE() do{}while(0)
+#define START_READ(i) do{}while(0)
+#define END_READ(i) do{}while(0)
+#define START_WRITE(i) do{}while(0)
+#define END_WRITE(i) do{}while(0)
 #elif defined P1_SEMAPHORE //using nachos semaphore. Your solution for Task 1
-#define START_READ(index) sem[index]->P() //TODO  
-#define END_READ(index) sem[index]->V() //TODO
-#define START_WRITE(index) sem[index]->P() //TODO
-#define END_WRITE(index) sem[index]->V()//TODO
+#define START_READ(i) sem[i]->P() //TODO  
+#define END_READ(i) sem[i]->V() //TODO
+#define START_WRITE(i) sem[i]->P() //TODO
+#define END_WRITE(i) sem[i]->V()//TODO
 #elif defined P1_LOCK //using our implemented nachos lock. Your solution for Task 2
-#define START_READ(index) lck[index]->Acquire() //TODO
-#define END_READ(index) lck[index]->Release() //TODO
-#define START_WRITE(index) lck[index]->Acquire() //TODO
-#define END_WRITE(index) lck[index]->Release() //TODO
+#define START_READ(i) lck[i]->Acquire() //TODO
+#define END_READ(i) lck[i]->Release() //TODO
+#define START_WRITE(i) lck[i]->Acquire() //TODO
+#define END_WRITE(i) lck[i]->Release() //TODO
 #elif defined P1_RWLOCK //using our rwlock. Your solution for Task 3
-#define START_READ() do{}while(0) //TODO
-#define END_READ() do{}while(0) //TODO
-#define START_WRITE() do{}while(0) //TODO
-#define END_WRITE() do{}while(0) //TODO
+#define START_READ(i) do{}while(0) //TODO
+#define END_READ(i) do{}while(0) //TODO
+#define START_WRITE(i) do{}while(0) //TODO
+#define END_WRITE(i) do{}while(0) //TODO
 #else //else behave like NOLOCK (no option passed)
-#define START_READ() do{}while(0)
-#define END_READ() do{}while(0)
-#define START_WRITE() do{}while(0)
-#define END_WRITE() do{}while(0)
+#define START_READ(i) do{}while(0)
+#define END_READ(i) do{}while(0)
+#define START_WRITE(i) do{}while(0)
+#define END_WRITE(i) do{}while(0)
 #endif
 
 LinkedHashEntry:: LinkedHashEntry(int key1, int value1) {
