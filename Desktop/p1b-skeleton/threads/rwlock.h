@@ -6,9 +6,9 @@
 class RWLock{
 private:
       //Add  fields for  RWLock. Your solution to Task 3
-	Lock lock;
-	Condition readGo;
-	Condition writeGo;
+	Lock *lock;
+	Condition *readGo;
+	Condition *writeGo;
 
 	// State variables
 	int activeReaders;

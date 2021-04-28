@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include <iostream> //
 
-
+#include <casser>
 #include "rwlock.h"
 #include "synch.h"
 
@@ -11,9 +11,9 @@
 
 RWLock::RWLock(){ 
     char s= 's';
-    lock = Lock(&(s));
-    readGo = Condition(&(s));
-    writeGo = Condition(&(s));
+    lock = new Lock(&(s));
+    readGo = new Condition(&(s));
+    writeGo = new Condition(&(s));
 
     activeReaders = 0;
 	activeWriters = 0;
@@ -24,43 +24,43 @@ RWLock::RWLock(){
 RWLock::~RWLock(){ }
 
 void RWLock::startRead(){ 
-    lock.Acquire();
+    lock->Acquire();
     waitingReaders++;
     while (activeWriters > 0 || waitingWriters > 0) {
-        readGo.Wait(&lock);
+        readGo->Wait(&lock);
     }
     waitingReaders--;
     activeReaders++;
-    lock.Release();
+    lock->Release();
 }
 void RWLock::doneRead(){ 
-    lock.Acquire();
+    lock->Acquire();
     activeReaders--;
     if (activeReaders == 0 
          && waitingWriters > 0) {
-        writeGo.Signal();
+        writeGo->Signal();
     }
-    lock.Release();
+    lock->Release();
 }
 void RWLock::startWrite(){ 
-    lock.Acquire();
+    lock->Acquire();
     waitingWriters++;
     while (activeWriters > 0 || activeReaders > 0) {
-        writeGo.Wait(&lock);
+        writeGo->Wait(&lock);
     }
     waitingWriters--;
     activeWriters++;
-    lock.Release();
+    lock->Release();
 }
 void RWLock::doneWrite(){ 
-    lock.Acquire();
+    lock->Acquire();
     activeWriters--;
     assert(activeWriters == 0);
     if (waitingWriters > 0) {
-        writeGo.Signal();
+        writeGo->Signal();
     } 
     else {
-        readGo.Broadcast();
+        readGo->Broadcast();
     }
-    lock.Release();
+    lock->Release();
 }
