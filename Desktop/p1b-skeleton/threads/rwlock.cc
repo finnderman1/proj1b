@@ -38,7 +38,7 @@ void RWLock::doneRead(){
     activeReaders--;
     if (activeReaders == 0 
          && waitingWriters > 0) {
-        writeGo->Signal();
+        writeGo->Signal(lock);
     }
     lock->Release();
 }
