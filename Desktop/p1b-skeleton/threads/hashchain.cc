@@ -98,11 +98,11 @@ HashMap::HashMap() {
     table[i] = NULL;
 #ifdef P1_SEMAPHORE
   for (int i = 0; i < TABLE_SIZE; i++)
-    sem[i] = new Semaphore("sem", 1);
+    sem[i] = new Semaphore('sem', 1);
   //insert setup code here
 #elif defined P1_LOCK
   for (int i = 0; i < TABLE_SIZE; i++)
-    lck[i] = new Lock("lck");
+    lck[i] = new Lock('lck');
   //insert setup code here
 #elif defined P1_RWLOCK
   //insert setup code here
